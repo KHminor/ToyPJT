@@ -54,9 +54,18 @@ class _MyAppState extends State<MyApp> {
 
 class Home extends StatelessWidget {
   const Home({super.key});
-
   @override
   Widget build(BuildContext context) {
+    var menu_list = [
+      {'title': '땡겨요', 'iconName': Icons.access_time},
+      {'title': '대출비교', 'iconName': Icons.money},
+      {'title': '스토리뱅크', 'iconName': Icons.chat},
+      {'title': '쏠팁스', 'iconName': Icons.tips_and_updates_outlined},
+      {'title': '쏠지갑', 'iconName': Icons.wallet},
+      {'title': '쏠야구', 'iconName': Icons.sports_baseball},
+      {'title': '비고', 'iconName': Icons.co_present},
+      {'title': '비고', 'iconName': Icons.ac_unit_sharp},
+    ];
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(15),
@@ -71,7 +80,7 @@ class Home extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           elevation: 1,
                           backgroundColor: Color(0xffE2E5F7),
-                          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)
                           )
@@ -105,7 +114,7 @@ class Home extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           backgroundColor: Colors.white,
-                          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
                         ),
                         onPressed: (){},
@@ -115,8 +124,8 @@ class Home extends StatelessWidget {
                             Text('내 계좌', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600),),
                             Row(
                               children: [
-                                Text('전체보기', style: TextStyle(fontSize: 18, color: Colors.blue, fontWeight: FontWeight.w600),),
-                                Icon(Icons.arrow_right, color: Colors.blue, size: 35,)
+                                Text('전체보기', style: TextStyle(fontSize: 15.5, color: Colors.blue, fontWeight: FontWeight.w600),),
+                                Icon(Icons.arrow_right, color: Colors.blue, size: 30,)
                               ],
                             ),
                           ],
@@ -163,12 +172,26 @@ class Home extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      child: SwipingRow(),
-                    )
+                    MainContent(),
+                    SectionButton1(),
+                    // BoxLayOut(comment: 'hi', sendIcon: Icons.add_alert_sharp,)
                   ]
               )
-          )
+          ),
+          SliverPadding(
+            padding: EdgeInsets.all(10),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                    (c,i) {
+                  return BoxLayOut(comment: menu_list[i]['title'], sendIcon: menu_list[i]['iconName']);
+                },
+                childCount: menu_list.length,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -234,11 +257,14 @@ class BottomBar extends StatelessWidget {
           icon: Icon(Icons.money),
           label: '머니버스',
         ),BottomNavigationBarItem(
-            icon: Icon(Icons.money),
-            label: '머니버스'
+            icon: Icon(Icons.shopping_bag),
+            label: '상품'
         ),BottomNavigationBarItem(
-            icon: Icon(Icons.money),
-            label: '머니버스'
+            icon: Icon(Icons.wallet_giftcard_rounded),
+            label: '혜택'
+        ),BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: '전체메뉴'
         ),
       ],
     );
@@ -256,7 +282,7 @@ class FlippedIcon extends StatelessWidget {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0), // X 축으로 반전
-      child: Icon(icon, color: Colors.grey.withOpacity(0.5),),
+      child: Icon(icon, color: Colors.grey.withOpacity(0.5), size: 18,),
     );
   }
 }
@@ -267,7 +293,7 @@ class SwipingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
@@ -305,6 +331,135 @@ class Exchange extends StatelessWidget {
           )
         ],
     )
+    );
+  }
+}
+
+class MainContent extends StatelessWidget {
+  const MainContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var cash = '1,443,884';
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text('${cash}원', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),),
+                    IconButton(onPressed: (){}, icon: Icon(Icons.refresh_sharp))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                      child: ElevatedButton(onPressed: (){}, child: Text('이체', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900),), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                      child: ElevatedButton(onPressed: (){}, child: Text('간편앱출금', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900)), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SwipingRow()
+        ],
+      ),
+    );
+  }
+}
+
+class SectionButton1 extends StatelessWidget {
+  const SectionButton1({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MarginContainer(EB: ()=>ElevatedButton(onPressed: (){}, child: Row(children: [Icon(Icons.catching_pokemon, color: Colors.blue,),Text('신한플러스', style: TextStyle(color: Colors.lightBlue),)],), style: ElevatedButton.styleFrom(backgroundColor: Colors.white),)),
+          MarginContainer(EB: ()=>ElevatedButton(onPressed: (){}, child: Text('카드', style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.w700),), style: ElevatedButton.styleFrom(backgroundColor: Colors.white),)),
+          MarginContainer(EB: ()=>ElevatedButton(onPressed: (){}, child: Text('증권', style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w700)), style: ElevatedButton.styleFrom(backgroundColor: Colors.white),),),
+          MarginContainer(EB: ()=>ElevatedButton(onPressed: (){}, child: Text('보험', style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.w700)), style: ElevatedButton.styleFrom(backgroundColor: Colors.white),),),
+        ],
+      ),
+    );
+  }
+}
+
+class MarginContainer extends StatelessWidget {
+  const MarginContainer({super.key, this.EB});
+  final EB;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(2, 0, 2, 0),
+      child: EB(),
+    );
+  }
+}
+
+class GridContainer extends StatelessWidget {
+  const GridContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (c,i)=> Text('hi'),
+              childCount: 8
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3)
+        )
+      ],
+    );
+  }
+}
+
+class BoxLayOut extends StatelessWidget {
+  const BoxLayOut({super.key, this.comment, this.sendIcon});
+  final comment;
+  final sendIcon;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(6),
+      height: 30,
+      width: 20,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 2, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+        onPressed: (){},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Text('${comment}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 14 ),)],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [Icon(sendIcon, color: Colors.deepOrangeAccent, size: 38,)],
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
