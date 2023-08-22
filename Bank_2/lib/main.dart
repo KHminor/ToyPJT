@@ -18,10 +18,13 @@ class MyApp extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPadding(
-            padding: EdgeInsets.all(10),
-            sliver: Column(
-              children: [
-              ],
+              padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
+            sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                    [
+                      Section1()
+                    ]
+                )
             ),
           )
         ],
@@ -37,15 +40,17 @@ class Section1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: [Text('김홍민'), Text('님')],
+                  children: [Text('김홍민', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),), Text('님')],
                 ),
                 Row(
-                  children: [Text('태양의 열정, 그늘의 여유'), Icon(Icons.beach_access)],
+                  children: [Text('태양의 열정, 그늘의 여유 '), Icon(Icons.beach_access,color: Colors.deepOrangeAccent,)],
                 )
               ],
             ),
@@ -53,9 +58,11 @@ class Section1 extends StatelessWidget {
           Container(
             child: Row(
               children: [
-                Icon(Icons.search),
-                Icon(Icons.notification_add_outlined),
-                Icon(Icons.menu)
+                Icon(Icons.search, size: 35,),
+                SizedBox(width: 10),
+                Icon(Icons.notification_add_outlined, size: 35,),
+                SizedBox(width: 10),
+                Icon(Icons.menu, size: 35,)
               ],
             ),
           )
