@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import './TradeDetailsCheck/detailCheck.dart';
+
 void main() {
   runApp(
     MaterialApp(
@@ -31,6 +33,7 @@ class _MyAppState extends State<MyApp> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: Container(
+          color: Colors.lightBlueAccent.withOpacity(0.02),
           alignment: Alignment.center,
           padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
           child: AppBar(
@@ -67,6 +70,7 @@ class Home extends StatelessWidget {
       {'title': '비고', 'iconName': Icons.ac_unit_sharp},
     ];
     return Container(
+      color: Colors.lightBlueAccent.withOpacity(0.02),
       alignment: Alignment.center,
       padding: EdgeInsets.all(15),
       child: CustomScrollView(
@@ -133,53 +137,68 @@ class Home extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.circle_outlined, color: Colors.blue, size: 45,),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
+                      // padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (c) => DetailCheck()));
+                        },
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.circle_outlined, color: Colors.blue, size: 45,),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        child: DefaultTextStyle(
+                                          style: TextStyle(
+                                            color: Colors.black45,
+                                            fontWeight: FontWeight.w700
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('입출금 ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),),
-                                              Text('U드림 저축예금 (인터넷전용)', style: TextStyle(fontSize: 14,)),
+                                              Row(
+                                                children: [
+                                                  Text('입출금 ', style: TextStyle(fontSize: 14, color: Colors.black),),
+                                                  Text('U드림 저축예금 (인터넷전용)', style: TextStyle(fontSize: 14)),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.min, // 자식 요소 크기에 따라 최소한의 공간 차지
+                                                mainAxisAlignment: MainAxisAlignment.start, // 자식 요소를 위쪽 정렬
+                                                children: [
+                                                  Text('신한  110-395520-965', style: TextStyle(fontSize: 13),),
+                                                  // IconButton(onPressed: (){}, icon: FlippedIcon(icon: Icons.copy_outlined),) // <-- 높이를 아직 해결하지 못함...
+                                                ],
+                                              )
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Text('신한  110-395520-965', style: TextStyle(fontSize: 13),),
-                                              IconButton(onPressed: (){}, icon: FlippedIcon(icon: Icons.copy_outlined))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                        )
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))
-                            ],
-                          )
-                        ],
-                      ),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.more_vert, color: Colors.black45,))
+                              ],
+                            ),
+                            MainContent(),
+                          ],
+                        ),
+                      )
                     ),
-                    MainContent(),
                     SectionButton1(),
-                    // BoxLayOut(comment: 'hi', sendIcon: Icons.add_alert_sharp,)
                   ]
               )
           ),
           SliverPadding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(0),
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
@@ -293,7 +312,7 @@ class SwipingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
@@ -341,37 +360,43 @@ class MainContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cash = '1,443,884';
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Row(
+    return DefaultTextStyle(
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 30
+        ),
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                child: Column(
                   children: [
-                    Text('${cash}원', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.refresh_sharp))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
-                      child: ElevatedButton(onPressed: (){}, child: Text('이체', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900),), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
+                    Row(
+                      children: [
+                        Text('${cash}원', style: TextStyle(fontWeight: FontWeight.w600),),
+                        IconButton(onPressed: (){}, icon: Icon(Icons.refresh_sharp, color: Colors.black45, size: 30,))
+                      ],
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                      child: ElevatedButton(onPressed: (){}, child: Text('간편앱출금', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900)), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
-                    )
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.fromLTRB(5, 0, 4, 0),
+                          child: ElevatedButton(onPressed: (){}, child: Text('이체', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900),), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                          child: ElevatedButton(onPressed: (){}, child: Text('간편앱출금', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900)), style: ElevatedButton.styleFrom(backgroundColor: Color(0xffE6F0FA), elevation: 2)),
+                        )
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              SwipingRow()
+            ],
           ),
-          SwipingRow()
-        ],
-      ),
+        )
     );
   }
 }
@@ -381,8 +406,7 @@ class SectionButton1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -438,7 +462,7 @@ class BoxLayOut extends StatelessWidget {
       height: 30,
       width: 20,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 2, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 1, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
         onPressed: (){},
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
