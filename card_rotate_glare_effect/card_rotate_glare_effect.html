@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 414px;
+        height: 600px;
+        transition: all 0.2s;
+      }
+      .overlay {
+        position: absolute;
+        width: 414px;
+        height: 600px;
+        background: linear-gradient(
+          105deg,
+          transparent 40%,
+          rgba(255, 219, 112, 0.8) 45%,
+          rgba(132, 50, 255, 0.6) 50%,
+          transparent 54%
+        );
+        filter: brightness(1.1) opacity(0.9);
+        mix-blend-mode: color-dodge;
+        background-size: 150% 150%;
+        background-position: 100%;
+        transition: all 0.2s;
+      }
+      .card {
+        width: 414px;
+        height: 600px;
+        background-image: url("hero_card.png");
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="overlay"></div>
+      <div class="card"></div>
+    </div>
+  </body>
+
+  <script>
+    var container = document.querySelector(".container");
+    var overlay = document.querySelector(".overlay");
+    container.addEventListener("mousemove", function (e) {
+      var x = e.offsetX;
+      var y = e.offsetY;
+
+      // x*a + b = deg
+      // 414a + b = -20 => 414a = -40 => -0.09
+      // 0 + b = 20
+
+      // 600a + b = 20 => 600a = 40 => a = 1/15
+      // b = -20
+
+      var Ydeg_val = -0.097 * x + 20;
+      var Xdeg_val = (1 / 15) * y - 20;
+      // perspective = 원근 효과
+      container.style = `transform: perspective(800px) rotateX(${Xdeg_val}deg) rotateY(${Ydeg_val}deg)`;
+
+      // glare 효과
+      // background-position은 이동을 시켜도 패턴을 계속해서 적용할 수 있다.
+      overlay.style = `filter: opacity(0.9); background-position: ${
+        x / 5 + y / 5
+      }%`;
+    });
+
+    container.addEventListener("mouseout", function () {
+      overlay.style = "filter: opacity(0.5); background-position: 207%";
+      container.style =
+        "transform: perspective(800px) rotateY(0deg) rotateX(0deg)";
+    });
+  </script>
+</html>
