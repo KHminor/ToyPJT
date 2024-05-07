@@ -1,1 +1,1 @@
-<iframe title="'나만의 개발블로그'에서 업로드한 동영상" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/446077388?service=player_share&autoplay=1" allowfullscreen frameborder="0" scrolling="no" allow="autoplay; fullscreen; encrypted-media"></iframe>
+![ezgif-7-42ad27da21](README.assets/ezgif-7-42ad27da21.gif)
