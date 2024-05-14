@@ -1,18 +1,18 @@
 package com.server.back.domain.stock.entity;
 
 import com.server.back.domain.common.entity.CreateEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @Table(name = "detail_stock") // JPA는 언더스코어로 구분
@@ -25,11 +25,13 @@ public class DetailStockEntity extends CreateEntity {
     @NotNull
     private String stockName;
 
-//    @NotNull
-//    private BigDecimal ;
+    @NotNull
+    private Integer lastRate;
+
+    @NotNull
+    private BigDecimal fluctuationRate;
 
     @ManyToOne
     @JoinColumn(name = "stock_id")
     private StockEntity stock;
-
 }

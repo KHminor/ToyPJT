@@ -3,6 +3,7 @@ package com.server.back.domain.stock.entity;
 import com.server.back.domain.common.entity.CreateEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -10,8 +11,9 @@ import javax.persistence.*;
 
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@Getter
+@NoArgsConstructor
+//@AllArgsConstructor
 @SuperBuilder
 @Table(name = "stock")
 public class StockEntity extends CreateEntity {
@@ -20,6 +22,5 @@ public class StockEntity extends CreateEntity {
     @Column(name = "stock_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stockId;
-
 
 }
