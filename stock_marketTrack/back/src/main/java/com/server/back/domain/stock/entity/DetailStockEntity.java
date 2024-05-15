@@ -34,4 +34,5 @@ public class DetailStockEntity extends CreateEntity {
     @ManyToOne
     @JoinColumn(name = "stock_id")
     private StockEntity stock;
+
 }

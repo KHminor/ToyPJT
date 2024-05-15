@@ -1,5 +1,6 @@
 package com.server.back.domain.stock.service;
 
+import com.server.back.domain.stock.dto.DetailStockReqDto;
 import com.server.back.domain.stock.entity.DetailStockEntity;
 import com.server.back.domain.stock.entity.StockEntity;
 import com.server.back.domain.stock.repository.DetailStockRepository;
@@ -66,7 +67,23 @@ public class StockService {
                 detailStockList.add(detailStock);
             }
             detailStockRepository.saveAll(detailStockList);
+            System.out.println("조회 완료");
         }
+    }
+
+    public List<DetailStockReqDto> getAllStockService() {
+        List<DetailStockEntity> detailStockEntityList = detailStockRepository.findAll();
+        List<DetailStockReqDto> detailStockReqDtoList = new ArrayList<>();
+        for (DetailStockEntity detailStock: detailStockEntityList) {
+            DetailStockReqDto stock = DetailStockReqDto.builder()
+                    .stockName(detailStock.getStockName())
+                    .lastRate(detailStock.getLastRate())
+                    .fluctuationRate(detailStock.getFluctuationRate())
+                    .stock(detailStock.getStock())
+                    .build();
+            detailStockReqDtoList.add(stock);
+        }
+        return detailStockReqDtoList;
     }
 
 }
