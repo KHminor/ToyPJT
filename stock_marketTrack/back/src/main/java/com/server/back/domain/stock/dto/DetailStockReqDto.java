@@ -12,5 +12,4 @@ public class DetailStockReqDto {
     private String stockName;
     private Integer lastRate;
     private BigDecimal fluctuationRate;
-    private StockEntity stock;
 }

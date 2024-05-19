@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +69,9 @@ public class StockService {
                 detailStockList.add(detailStock);
             }
             detailStockRepository.saveAll(detailStockList);
-            System.out.println("조회 완료");
+
         }
+        System.out.println("조회 완료");
     }
 
     public List<DetailStockReqDto> getAllStockService() {
@@ -79,11 +82,34 @@ public class StockService {
                     .stockName(detailStock.getStockName())
                     .lastRate(detailStock.getLastRate())
                     .fluctuationRate(detailStock.getFluctuationRate())
-                    .stock(detailStock.getStock())
                     .build();
             detailStockReqDtoList.add(stock);
         }
         return detailStockReqDtoList;
     }
 
+    public List<DetailStockEntity> getSpecificDateStockDataService(String clickDate){
+        // 현재 하고자 하는 건
+        // 특정 stockId를 찾은 다음 detailStockEntity의 데이터 중 stockId와 같은 모든 데이터를 찾기
+        List<StockEntity> stockEntities = stockRepository.findAll();
+        List<DetailStockEntity> detailStockEntities = new ArrayList<>();
+
+        for (StockEntity stock: stockEntities) {
+            if (stock.getCreatedAt().toString().split("T")[0].equals(clickDate)) {
+                detailStockEntities.addAll(detailStockRepository.findAllByStock_StockId(stock.getStockId())); // addAll
+            }
+        }
+        return detailStockEntities;
+    }
+
+    public List<DetailStockReqDto> lastDetailStockData() {
+        StockEntity stock = stockRepository.findTopByOrderByStockIdDesc();
+        List<DetailStockEntity> detailStockEntities = detailStockRepository.findAllByStock_StockId(stock.getStockId());
+        return detailStockEntities.stream()
+                .map(detailStock -> DetailStockReqDto.builder()
+                        .stockName(detailStock.getStockName())
+                        .lastRate(detailStock.getLastRate())
+                        .fluctuationRate(detailStock.getFluctuationRate())
+                        .build()).collect(Collectors.toList());
+    }
 }

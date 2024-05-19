@@ -2,12 +2,14 @@ package com.server.back.domain.stock.controller;
 
 
 import com.server.back.domain.stock.dto.DetailStockReqDto;
+import com.server.back.domain.stock.entity.DetailStockEntity;
 import com.server.back.domain.stock.service.StockService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,9 +45,16 @@ public class StockController {
         return stockService.getAllStockService();
     }
 
-//    @GetMapping("/{}")
-//    @ApiOperation(value="특정 회차 데이터 조회")
-//    public void getStockData(){
-//        stockService.saveStockService();
-//    }
+    @GetMapping("/{clickDate}")
+    @ApiOperation(value="특정 일자 데이터 조회")
+    public List<DetailStockEntity> getSpecificDateStockData(@PathVariable("clickDate") String clickDate){
+        return stockService.getSpecificDateStockDataService(clickDate);
+    }
+
+    @GetMapping("/last")
+    @ApiOperation(value="마지막 주식 데이터")
+    public List<DetailStockReqDto> getLastDetailStockData() {
+//        stockService.lastDetailStockData();
+        return stockService.lastDetailStockData();
+    }
 }
