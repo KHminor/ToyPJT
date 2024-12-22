@@ -2,6 +2,8 @@ package com.server.back.domain.stock.controller;
 
 
 import com.server.back.domain.stock.dto.DetailStockReqDto;
+import com.server.back.domain.stock.dto.DetailStockTimeReqDto;
+import com.server.back.domain.stock.dto.EnterNameReqDto;
 import com.server.back.domain.stock.entity.DetailStockEntity;
 import com.server.back.domain.stock.service.StockService;
 import io.swagger.annotations.ApiOperation;
@@ -45,7 +47,7 @@ public class StockController {
         return stockService.getAllStockService();
     }
 
-    @GetMapping("/{clickDate}")
+    @GetMapping("/date/{clickDate}")
     @ApiOperation(value="특정 일자 데이터 조회")
     public List<DetailStockEntity> getSpecificDateStockData(@PathVariable("clickDate") String clickDate){
         return stockService.getSpecificDateStockDataService(clickDate);
@@ -54,7 +56,18 @@ public class StockController {
     @GetMapping("/last")
     @ApiOperation(value="마지막 주식 데이터")
     public List<DetailStockReqDto> getLastDetailStockData() {
-//        stockService.lastDetailStockData();
-        return stockService.lastDetailStockData();
+        return stockService.lastDetailStockDataService();
+    }
+
+    @GetMapping("/enter/{searchEnter}")
+    @ApiOperation(value="특정 기업 주식 데이터")
+    public List<DetailStockTimeReqDto> getSearchEnterData(@PathVariable("searchEnter") String searchEnter) {
+        return stockService.searchEnterDataService(searchEnter);
+    }
+
+    @GetMapping("/allStockName")
+    @ApiOperation(value = "모든 기업명 조회")
+    public List<EnterNameReqDto> getAllEnterNameData() {
+        return stockService.allEnterNameDataService();
     }
 }

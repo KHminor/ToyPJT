@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface DetailStockRepository extends JpaRepository<DetailStockEntity, Long> {
     List<DetailStockEntity> findAllByStock_StockId(Long stockId);
-    List<DetailStockEntity> findByStock_StockId(Long stockId);
+    List<DetailStockEntity> findAllByStockName(String stockName);
 }

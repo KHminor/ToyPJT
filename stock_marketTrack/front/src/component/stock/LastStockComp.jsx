@@ -33,7 +33,6 @@ const LastStockComp = ({ data }) => {
         <Tooltip />
         <Legend />
         <ReferenceLine y={0} stroke="#000" />
-        {/* <Bar dataKey="lastRate" fill="#8884d8" /> */}
         <Bar dataKey="fluctuationRate">
           {data.map((entry, index) => (
             <Cell
