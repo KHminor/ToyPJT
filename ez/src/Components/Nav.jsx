@@ -1,8 +1,4 @@
-import { useState } from "react";
-import Menu from "./Menu";
-
-export default function Nav() {
-  const [isMenu, setIsMenu] = useState(false);
+export default function Nav({ isMenu, setIsMenu }) {
   const click = (e) => {
     console.log(e.target.ariaLabel);
     console.log(isMenu);
@@ -14,7 +10,6 @@ export default function Nav() {
   };
   return (
     <>
-      {isMenu && <Menu />}
       <nav className='nav flex justify-evenly items-center'>
         <div className='bg-red-500 w-1/3 text-start pl-4'>이지엠앤씨</div>
         <div className='bg-green-500 w-1/3 flex justify-evenly'>

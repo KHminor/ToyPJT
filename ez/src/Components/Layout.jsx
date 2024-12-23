@@ -1,11 +1,16 @@
+import { useState } from "react";
 import Nav from "./Nav";
+import Menu from "./Menu";
 
 export default function Layout() {
+  const [isMenu, setIsMenu] = useState(false);
+
   return (
     <>
-      <div className='relative flex justify-center bg-black text-white hover:bg-white hover:text-black'>
+      {isMenu && <Menu isMenu={isMenu} setIsMenu={setIsMenu} />}
+      <div className='relative flex justify-center text-white'>
         <div className='container'>
-          <Nav />
+          <Nav isMenu={isMenu} setIsMenu={setIsMenu} />
         </div>
       </div>
     </>
