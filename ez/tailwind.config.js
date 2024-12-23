@@ -11,19 +11,25 @@ module.exports = {
           "@apply flex justify-center items-center": "",
         },
         ".menu-grid": {
-          "@apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2":
+          "@apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] gap-3 pl-4":
             "",
         },
       };
       const fontUtilities = {
-        ".h2Tag": {
-          "@apply text-5xl font-bold": "",
+        ".menu": {
+          "@apply text-5xl font-bold tracking-wider": "",
         },
-        ".pTag": {
-          "@apply text-lg font-light text-center": "",
+        ".menu-section": {
+          "@apply text-lg font-light text-start tracking-wide": "",
         },
       };
-      addUtilities([layoutUtilities, fontUtilities]);
+      const iconUtilities = {
+        ".icon": {
+          "@apply cursor-pointer hover:scale-105 transition-all duration-100":
+            "",
+        },
+      };
+      addUtilities([layoutUtilities, fontUtilities, iconUtilities]);
     },
   ],
 };

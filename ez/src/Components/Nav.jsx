@@ -17,12 +17,10 @@ export default function Nav({ isMenu, setIsMenu }) {
           <div>SERVICES</div>
           <div>CONTACT</div>
         </div>
-        <div
-          className='bg-blue-500 w-1/3 text-end pr-4'
-          aria-label='menu'
-          onClick={click}
-        >
-          MENU
+        <div className='bg-blue-500 w-1/3 text-end pr-4'>
+          <span className='icon' aria-label='menu' onClick={click}>
+            MENU
+          </span>
         </div>
       </nav>
     </>
