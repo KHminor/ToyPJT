@@ -9,7 +9,7 @@ export default function Layout() {
     <>
       {isMenu && <Menu isMenu={isMenu} setIsMenu={setIsMenu} />}
       <div className='relative flex justify-center text-white'>
-        <div className='container'>
+        <div className='container fixed'>
           <Nav isMenu={isMenu} setIsMenu={setIsMenu} />
         </div>
       </div>

@@ -1,0 +1,25 @@
+@keyframes closeMenu {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes showMenu {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+.icon {
+  opacity: 0%;
+}
+
+.showMenu {
+  animation: showMenu 0.5s ease-in;
+}
