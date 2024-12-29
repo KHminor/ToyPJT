@@ -1,30 +1,48 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./nav.module.css";
 
 export default function Nav({ isMenu, setIsMenu }) {
   const [hoverMenu, isHoverMenu] = useState("");
+  const [fullMenu, isFullMenu] = useState(false);
 
-  const click = (e) => {
-    console.log(hoverMenu);
-    switch (e.target.ariaLabel) {
-      case "menu":
-        setIsMenu(!isMenu);
-        break;
-    }
-  };
+  const click = useCallback(
+    (e) => {
+      switch (e.target.ariaLabel) {
+        case "menu":
+          setIsMenu(!isMenu);
+          break;
+      }
+    },
+    [isMenu]
+  );
+  const hoverFullMenu = useCallback((e) => {
+    console.log("hoverFullMenu");
+    isFullMenu(true);
+  }, []);
 
-  const hover = (e) => {
+  const hoverOutFullMenu = useCallback((e) => {
+    console.log("hoverOutFullMenu");
+    isFullMenu(false);
+  }, []);
+
+  const hover = useCallback((e) => {
     isHoverMenu(e.target.ariaLabel);
-  };
+  }, []);
 
-  const hoverOut = (e) => {
+  const hoverOut = useCallback((e) => {
     isHoverMenu("");
-  };
+  }, []);
   return (
     <>
-      <nav className='nav flex justify-evenly items-center relative'>
+      <nav className='nav flex justify-evenly items-start relative'>
         <div className='bg-red-500 w-1/3 text-start pl-4'>이지엠앤씨</div>
-        <div className='bg-green-500 w-1/3 flex text-center relative'>
+        <div
+          className={`bg-green-500 w-1/3 flex text-center relative ${
+            fullMenu ? "h-[40vh]" : "h-auto"
+          }`}
+          onMouseEnter={hoverFullMenu}
+          onMouseLeave={hoverOutFullMenu}
+        >
           <ul className='w-1/3 relative'>
             <li
               about='company'
@@ -37,9 +55,11 @@ export default function Nav({ isMenu, setIsMenu }) {
                 <span>COMPANY</span>
               </a>
               <ul
-                className={`${
-                  hoverMenu == "company" ? "block" : "hidden"
-                } absolute bg-green-500 w-full`}
+                className={`block space-y-4 pt-2 ${
+                  hoverMenu == "company" ? "bg-pink-400 w-full" : ""
+                }
+                ${!fullMenu && "hidden"}
+                `}
               >
                 <li>
                   <a href='#'>회사소개</a>
@@ -61,9 +81,10 @@ export default function Nav({ isMenu, setIsMenu }) {
                 <span>SERVICES</span>
               </a>
               <ul
-                className={`${
-                  hoverMenu == "services" ? "block" : "hidden"
-                } absolute bg-green-500 w-full`}
+                className={`block space-y-4 pt-2 ${
+                  hoverMenu == "services" ? "bg-cyan-400 w-full" : ""
+                }
+                ${!fullMenu && "hidden"}`}
               >
                 <li>
                   <a href='#'>메디컬 마케팅</a>
@@ -92,9 +113,9 @@ export default function Nav({ isMenu, setIsMenu }) {
             >
               <a href='#'>CONTACT</a>
               <ul
-                className={`${
-                  hoverMenu == "contact" ? "block" : "hidden"
-                } absolute bg-green-500 w-full`}
+                className={`block space-y-4 pt-2 ${
+                  hoverMenu == "contact" ? "bg-amber-400 w-full" : ""
+                } ${!fullMenu && "hidden"}`}
               >
                 <li>
                   <a href='#'>지원하기</a>
